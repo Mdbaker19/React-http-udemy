@@ -1,0 +1,36 @@
+body{
+    background-color: #3c3b3b;
+    color: aliceblue;
+    text-align: center;
+}
+
+button{
+    padding: 10px;
+    margin: 10px;
+    border: 10px solid purple;
+    border-radius: 5px;
+}
+h1{
+    color: yellow;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    justify-content: space-around;
+    height: 33vh;
+    border: 2px solid black;
+    margin: 1rem 4rem;
+    box-shadow: 0 0 8px 13px #4e4d4d;
+}
+li{
+    background-color: #2570b3;
+    border-radius: 15px;
+    box-shadow: -5px 4px 8px black;
+    color: black;
+    list-style-type: none;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+}
