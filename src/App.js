@@ -13,7 +13,8 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch("https://swapi.dev/api/films/", {});
+      const res = await fetch("https://react-http-movie-udemy-default-rtdb.firebaseio.com/movies.json", {});
+      // const res = await fetch("https://swapi.dev/api/films/", {});
 
       if (!res.ok) {
         throw new Error("Something went wrong"); // swapi does not handle the errors the same way
@@ -21,15 +22,18 @@ function App() {
 
       const data = await res.json();
 
-      const parsedData = data.results.map(movieData => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        }
-      });
-      setMovies(parsedData);
+      const loadedMovies = [];
+
+      for(const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate
+        });
+      }
+
+      setMovies(loadedMovies);
     } catch (err) {
       setError(err.message);
     }
@@ -40,8 +44,15 @@ function App() {
     fetchMovieHandler();
   }, [fetchMovieHandler]);
 
-  const addMovieHandler = (movie) => {
-    console.log(movie);
+  const addMovieHandler = async (movie) => {
+    const res = await fetch("https://react-http-movie-udemy-default-rtdb.firebaseio.com/movies.json", {
+      method: "POST",
+      body: JSON.stringify(movie),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await res.json();
   }
 
   let content = <p>Found no movies.</p>
